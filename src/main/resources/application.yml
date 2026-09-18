@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: ms-account
+  config:
+    import: "classpath:application-vault.yml,vault://"
+
+server:
+  port: 0
+
+eureka:
+  instance:
+    hostname: localhost
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: ${eureka-server}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
