@@ -3,14 +3,19 @@ spring:
     name: ms-account
   config:
     import: "classpath:application-vault.yml,vault://"
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${issuer-uri}
 
 server:
   port: 0
 
 eureka:
   instance:
-    hostname: localhost
     prefer-ip-address: true
+    ip-address: 127.0.0.1
   client:
     service-url:
       defaultZone: ${eureka-server}
