@@ -1,8 +1,6 @@
 package com.example.msaccount.service;
 
 import com.example.msaccount.dto.UpdateUserRequest;
-import jakarta.ws.rs.RedirectionException;
-import jakarta.ws.rs.WebApplicationException;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.admin.client.resource.UserResource;
 import org.keycloak.representations.idm.UserRepresentation;
@@ -21,27 +19,31 @@ public class KeycloakUserService {
     }
 
     public void updateUser(String userId, UpdateUserRequest updateUserRequest) {
-            UserResource userResource = keycloak.realm(realm).users().get(userId);
-            UserRepresentation user = userResource.toRepresentation();
+        UserResource userResource = getUserResource(userId);
+        UserRepresentation user = userResource.toRepresentation();
 
-            if (updateUserRequest.getFirstName() != null) user.setFirstName(updateUserRequest.getFirstName());
-            if (updateUserRequest.getLastName() != null) user.setLastName(updateUserRequest.getLastName());
+        if (updateUserRequest.getFirstName() != null) user.setFirstName(updateUserRequest.getFirstName());
+        if (updateUserRequest.getLastName() != null) user.setLastName(updateUserRequest.getLastName());
 
-            userResource.update(user);
+        userResource.update(user);
     }
 
     public void deleteUser(String userId) {
-        keycloak.realm(realm).users().get(userId).remove();
+        getUserResource(userId).remove();
     }
 
     public void logoutUser(String userId) {
-        keycloak.realm(realm).users().get(userId).logout();
+        getUserResource(userId).logout();
     }
 
-    public void toggleUserStatus(String userId, boolean enabled) {
-        UserResource userResource = keycloak.realm(realm).users().get(userId);
+    public void deactivateUser(String userId) {
+        UserResource userResource = getUserResource(userId);
         UserRepresentation user = userResource.toRepresentation();
-        user.setEnabled(enabled);
+        user.setEnabled(false);
         userResource.update(user);
+    }
+
+    private UserResource getUserResource(String userId) {
+        return keycloak.realm(realm).users().get(userId);
     }
 }
