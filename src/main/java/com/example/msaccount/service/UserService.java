@@ -22,7 +22,7 @@ public class UserService {
     private final String realm;
     private final AccountLifecycleRepository accountLifecycleRepository;
 
-    public UserService(Keycloak keycloak, @Value("${keycloak.realm}") String realm,AccountLifecycleRepository accountLifecycleRepository) {
+    public UserService(Keycloak keycloak, @Value("${lib-auth-kyc.keycloak.realm}") String realm, AccountLifecycleRepository accountLifecycleRepository) {
         this.keycloak = keycloak;
         this.realm = realm;
         this.accountLifecycleRepository = accountLifecycleRepository;
