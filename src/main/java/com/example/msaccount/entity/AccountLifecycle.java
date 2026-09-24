@@ -25,6 +25,6 @@ public class AccountLifecycle {
     @Column(name = "requested_at", nullable = false)
     private Instant requestedAt;
 
-    @Column(name = "purge_at", nullable = false)
+    @Column(name = "purge_at")
     private Instant purgeAt;
 }

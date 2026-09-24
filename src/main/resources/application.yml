@@ -10,12 +10,19 @@ spring:
     url: ${db-url}
     username: ${db-username}
     password: ${db-password}
+  liquibase:
+    enabled: true
+    change-log: classpath:migration/changelog-master.xml
+    default-schema: ms_account
+    liquibase-schema: ms_account
   jpa:
     show-sql: true
     properties:
       hibernate:
         format_sql: false
-        default_schema: account
+        default_schema: ms_account
+        ddl-auto: none
+    generate-ddl: false
   config:
     import: "classpath:application-vault.yml,vault://"
   security:
@@ -51,4 +58,3 @@ lib-auth-kyc:
       client-id: ${cfa-client-id}
       client-secret: ${cfa-client-secret}
       enabled: true
-

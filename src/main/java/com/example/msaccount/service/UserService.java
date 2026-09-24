@@ -63,12 +63,17 @@ public class UserService {
     }
 
     public void deactivateUser(String userId) {
-        UserResource userResource = getUserResource(userId);
-        UserRepresentation user = userResource.toRepresentation();
-        user.setEnabled(false);
-        userResource.update(user);
+        AccountLifecycle lifecycle = AccountLifecycle.builder()
+                .userId(userId)
+                .status(LifecycleStatus.DEACTIVATED)
+                .requestedAt(Instant.now())
+                .build();
+
+        accountLifecycleRepository.save(lifecycle);
 
         revokeAllSessions(userId);
+
+        // todo: WIP kafka or front request me endpoint after login page
     }
 
     public void deleteUser(String userId) {

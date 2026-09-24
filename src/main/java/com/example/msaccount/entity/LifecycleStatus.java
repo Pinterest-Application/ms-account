@@ -4,5 +4,6 @@ public enum LifecycleStatus {
     PENDING_DELETION,
     CANCELLED,
     PURGED,
-    FAILED
+    FAILED,
+    DEACTIVATED
 }
