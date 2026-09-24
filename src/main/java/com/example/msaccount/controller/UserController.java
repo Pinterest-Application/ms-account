@@ -1,19 +1,27 @@
 package com.example.msaccount.controller;
 
 import com.example.msaccount.dto.UpdateUserRequest;
-import com.example.msaccount.service.KeycloakUserService;
+import com.example.msaccount.dto.UserResponse;
+import com.example.msaccount.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-public class MainController {
+public class UserController {
 
-    private final KeycloakUserService keycloakUserService;
+    private final UserService userService;
 
-    public MainController(KeycloakUserService keycloakUserService) {
-        this.keycloakUserService = keycloakUserService;
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
+    @GetMapping
+    public ResponseEntity<UserResponse> getUser(@AuthenticationPrincipal Jwt jwt) {
+        UserResponse user = userService.getUserById(jwt.getSubject());
+
+        return ResponseEntity.ok(user);
     }
 
     @PatchMapping
@@ -21,25 +29,25 @@ public class MainController {
             @AuthenticationPrincipal Jwt jwt,
             @RequestBody UpdateUserRequest request) {
 
-        keycloakUserService.updateUser(jwt.getSubject(), request);
+        userService.updateUser(jwt.getSubject(), request);
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping
     public ResponseEntity<Void> deleteUser(@AuthenticationPrincipal Jwt jwt) {
-        keycloakUserService.deleteUser(jwt.getSubject());
+        userService.deleteUser(jwt.getSubject());
         return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/logout")
     public ResponseEntity<Void> logoutUser(@AuthenticationPrincipal Jwt jwt) {
-        keycloakUserService.logoutUser(jwt.getSubject());
+        userService.logoutUser(jwt.getSubject());
         return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/deactivate")
     public ResponseEntity<Void> deactivateUser(@AuthenticationPrincipal Jwt jwt) {
-        keycloakUserService.deactivateUser(jwt.getSubject());
+        userService.deactivateUser(jwt.getSubject());
         return ResponseEntity.noContent().build();
     }
 

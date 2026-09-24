@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class KeycloakExceptionAspect {
 
-    @Around("execution(* com.example.msaccount.service.KeycloakUserService.*(..))")
+    @Around("execution(* com.example.msaccount.service.UserService.*(..))")
     public Object translateKeycloakExceptions(ProceedingJoinPoint joinPoint) throws Throwable {
         try {
             return joinPoint.proceed();

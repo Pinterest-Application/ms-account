@@ -1,6 +1,7 @@
 package com.example.msaccount.service;
 
 import com.example.msaccount.dto.UpdateUserRequest;
+import com.example.msaccount.dto.UserResponse;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.admin.client.resource.UserResource;
 import org.keycloak.representations.idm.UserRepresentation;
@@ -8,12 +9,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
-public class KeycloakUserService {
+public class UserService {
 
     private final Keycloak keycloak;
     private final String realm;
 
-    public KeycloakUserService(Keycloak keycloak, @Value("${keycloak.realm}") String realm) {
+    public UserService(Keycloak keycloak, @Value("${keycloak.realm}") String realm) {
         this.keycloak = keycloak;
         this.realm = realm;
     }
@@ -41,6 +42,21 @@ public class KeycloakUserService {
         UserRepresentation user = userResource.toRepresentation();
         user.setEnabled(false);
         userResource.update(user);
+    }
+
+    public UserResponse getUserById(String userId) {
+        UserRepresentation user = getUserResource(userId).toRepresentation();
+
+        return UserResponse.builder()
+                .id(user.getId())
+                .username(user.getUsername())
+                .email(user.getEmail())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .enabled(Boolean.TRUE.equals(user.isEnabled()))
+                .emailVerified(Boolean.TRUE.equals(user.isEmailVerified()))
+                .attributes(user.getAttributes())
+                .build();
     }
 
     private UserResource getUserResource(String userId) {
