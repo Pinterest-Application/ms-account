@@ -24,7 +24,7 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
-    @PatchMapping
+    @PostMapping
     public ResponseEntity<Void> updateUser(
             @AuthenticationPrincipal Jwt jwt,
             @RequestBody UpdateUserRequest request) {

@@ -7,9 +7,9 @@ spring:
     name: ms-account
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://coolify.tail1270a7.ts.net:5432/pin?currentSchema=account
-    username: account_user
-    password: 0KbNMsFnRjwyTK1v
+    url: ${db-url}
+    username: ${db-username}
+    password: ${db-password}
   jpa:
     show-sql: true
     properties:
@@ -43,11 +43,12 @@ management:
 
 lib-auth-kyc:
   keycloak:
-    server-url: https://keycloak.fuaddm.com
-    realm: pin-realm
-    client-id: spring-admin-client
-    client-secret: KFBnZqbbskVEFgdMPs490YMNBu1pYUmL
+    server-url: ${kyc-server-url}
+    realm: ${kyc-realm}
+    client-id: ${kyc-client-id}
+    client-secret: ${kyc-client-secret}
     cloudflare-access:
-      client-id: 4b8e0f135fa1a9c574a175e48a28bcae.access
-      client-secret: cfast_tkNtlnk6qfDDvFfU4xapngDaVoqsVPqcrBRcXZtP73e28124
+      client-id: ${cfa-client-id}
+      client-secret: ${cfa-client-secret}
+      enabled: true
 

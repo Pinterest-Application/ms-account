@@ -5,6 +5,7 @@ import com.example.msaccount.dto.UserResponse;
 import com.example.msaccount.entity.AccountLifecycle;
 import com.example.msaccount.entity.LifecycleStatus;
 import com.example.msaccount.repository.AccountLifecycleRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.admin.client.resource.UserResource;
 import org.keycloak.representations.idm.UserRepresentation;
@@ -16,6 +17,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Service
+@Slf4j
 public class UserService {
 
     private final Keycloak keycloak;
