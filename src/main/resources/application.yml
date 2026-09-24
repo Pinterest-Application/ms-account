@@ -1,6 +1,28 @@
+logging:
+  level:
+    org.springframework: DEBUG
+
 spring:
   application:
     name: ms-account
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${db-url}
+    username: ${db-username}
+    password: ${db-password}
+  liquibase:
+    enabled: true
+    change-log: classpath:migration/changelog-master.xml
+    default-schema: ms_account
+    liquibase-schema: ms_account
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: false
+        default_schema: ms_account
+        ddl-auto: none
+    generate-ddl: false
   config:
     import: "classpath:application-vault.yml,vault://"
   security:
@@ -25,3 +47,14 @@ management:
     web:
       exposure:
         include: health,info
+
+lib-auth-kyc:
+  keycloak:
+    server-url: ${kyc-server-url}
+    realm: ${kyc-realm}
+    client-id: ${kyc-client-id}
+    client-secret: ${kyc-client-secret}
+    cloudflare-access:
+      client-id: ${cfa-client-id}
+      client-secret: ${cfa-client-secret}
+      enabled: true
