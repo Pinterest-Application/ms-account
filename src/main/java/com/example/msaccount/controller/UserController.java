@@ -39,12 +39,6 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/logout")
-    public ResponseEntity<Void> logoutUser(@AuthenticationPrincipal Jwt jwt) {
-        userService.logoutUser(jwt.getSubject());
-        return ResponseEntity.noContent().build();
-    }
-
     @PostMapping("/deactivate")
     public ResponseEntity<Void> deactivateUser(@AuthenticationPrincipal Jwt jwt) {
         userService.deactivateUser(jwt.getSubject());
