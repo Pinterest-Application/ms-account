@@ -1,3 +1,7 @@
+logging:
+  level:
+    org.springframework: DEBUG
+
 spring:
   application:
     name: ms-account
@@ -36,3 +40,4 @@ cloudflare:
   access:
     client-id: 4b8e0f135fa1a9c574a175e48a28bcae.access
     client-secret: cfast_tkNtlnk6qfDDvFfU4xapngDaVoqsVPqcrBRcXZtP73e28124
+

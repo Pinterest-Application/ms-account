@@ -33,10 +33,6 @@ public class UserService {
         getUserResource(userId).remove();
     }
 
-    public void logoutUser(String userId) {
-        getUserResource(userId).logout();
-    }
-
     public void deactivateUser(String userId) {
         UserResource userResource = getUserResource(userId);
         UserRepresentation user = userResource.toRepresentation();
@@ -47,12 +43,16 @@ public class UserService {
     public UserResponse getUserById(String userId) {
         UserRepresentation user = getUserResource(userId).toRepresentation();
 
+        System.out.println("Gələn atributlar: " + user.getAttributes());
+        String latestPictureUrl = user.firstAttribute("picture");
+
         return UserResponse.builder()
                 .id(user.getId())
                 .username(user.getUsername())
                 .email(user.getEmail())
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
+                .pictureUrl(latestPictureUrl)
                 .enabled(Boolean.TRUE.equals(user.isEnabled()))
                 .emailVerified(Boolean.TRUE.equals(user.isEmailVerified()))
                 .attributes(user.getAttributes())
@@ -62,4 +62,5 @@ public class UserService {
     private UserResource getUserResource(String userId) {
         return keycloak.realm(realm).users().get(userId);
     }
+
 }

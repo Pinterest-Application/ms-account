@@ -14,6 +14,7 @@ public class UserResponse {
     private String email;
     private String firstName;
     private String lastName;
+    private String pictureUrl;
     private boolean enabled;
     private boolean emailVerified;
     private Map<String, List<String>> attributes;
