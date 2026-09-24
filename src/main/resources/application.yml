@@ -5,6 +5,17 @@ logging:
 spring:
   application:
     name: ms-account
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://coolify.tail1270a7.ts.net:5432/pin?currentSchema=account
+    username: account_user
+    password: 0KbNMsFnRjwyTK1v
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: false
+        default_schema: account
   config:
     import: "classpath:application-vault.yml,vault://"
   security:

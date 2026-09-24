@@ -39,6 +39,14 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
+    @PostMapping("/cancel-deletion")
+    public ResponseEntity<Void> cancelDeletion(@AuthenticationPrincipal Jwt jwt) {
+        userService.cancelUserDeletion(jwt.getSubject());
+        return ResponseEntity.noContent().build();
+        // todo: it should work with cancel_token.
+        // in current version it will not work.
+    }
+
     @PostMapping("/deactivate")
     public ResponseEntity<Void> deactivateUser(@AuthenticationPrincipal Jwt jwt) {
         userService.deactivateUser(jwt.getSubject());

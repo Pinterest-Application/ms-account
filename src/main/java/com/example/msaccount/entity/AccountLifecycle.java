@@ -1,9 +1,6 @@
 package com.example.msaccount.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.Instant;
@@ -20,6 +17,10 @@ public class AccountLifecycle {
     @Id
     @Column(name = "user_id", length = 64)
     private String userId;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", length = 32, nullable = false)
+    private LifecycleStatus status;
 
     @Column(name = "requested_at", nullable = false)
     private Instant requestedAt;
