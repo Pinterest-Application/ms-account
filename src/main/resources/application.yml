@@ -5,6 +5,8 @@ logging:
 spring:
   application:
     name: ms-account
+  config:
+    import: "classpath:application-vault.yml,vault://"
   datasource:
     driver-class-name: org.postgresql.Driver
     url: ${db-url}
@@ -16,15 +18,13 @@ spring:
     default-schema: ms_account
     liquibase-schema: ms_account
   jpa:
-    show-sql: true
+    show-sql: false
     properties:
       hibernate:
         format_sql: false
         default_schema: ms_account
         ddl-auto: none
     generate-ddl: false
-  config:
-    import: "classpath:application-vault.yml,vault://"
   security:
     oauth2:
       resourceserver:
