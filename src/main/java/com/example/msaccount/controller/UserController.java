@@ -3,6 +3,7 @@ package com.example.msaccount.controller;
 import com.example.msaccount.dto.UpdateUserRequest;
 import com.example.msaccount.dto.UserResponse;
 import com.example.msaccount.service.UserService;
+import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
@@ -27,7 +28,7 @@ public class UserController {
     @PostMapping
     public ResponseEntity<Void> updateUser(
             @AuthenticationPrincipal Jwt jwt,
-            @RequestBody UpdateUserRequest request) {
+            @SpringQueryMap UpdateUserRequest request) {
 
         userService.updateUser(jwt.getSubject(), request);
         return ResponseEntity.noContent().build();

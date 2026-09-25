@@ -56,6 +56,7 @@ public class UserService {
         if (updateUserRequest.getLastName() != null) user.setLastName(updateUserRequest.getLastName());
 
         userResource.update(user);
+        // fileUrl gelirse onuda update et
     }
 
     public void revokeAllSessions(String userId) {
@@ -72,6 +73,12 @@ public class UserService {
         accountLifecycleRepository.save(lifecycle);
 
         revokeAllSessions(userId);
+
+        // kafka serveri qaldir
+        // topici qur
+        // adin
+        // hemin topice deactivated olunmus user id vur
+
 
         // todo: WIP kafka or front request me endpoint after login page
     }
